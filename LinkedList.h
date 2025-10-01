@@ -1,1 +1,23 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 #include "Givens.h"
+#include <stdio.h>
+
+
+// function prototypes
+// used to declare our functions
+struct Node* createNode(char* Data);
+
+void insertAtEnd(struct Node** head, struct Node* newNode);
+
+struct Node* createList(FILE* inf);
+
+struct Node* removeNode(struct Node** head, int index);
+
+void traverse(struct Node* head);
+
+void freeNode(struct Node* aNode);
+
+void freeList(struct Node** head);
+
+#endif
