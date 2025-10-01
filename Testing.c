@@ -1,4 +1,8 @@
 #include "Testing.h"
+#include "LinkedList.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 int main(){
 
@@ -19,6 +23,33 @@ int main(){
     }
 
     //Test your linked list functions here!!!
+
+        // ====== TESTING START ======
+    printf("\n--- Creating list from file ---\n");
+    struct Node* head = createList(infile);
+
+    printf("\n--- Traversing list ---\n");
+    traverse(head);
+
+    printf("\n--- Removing node at index 0 (head) ---\n");
+    struct Node* removed = removeNode(&head, 0);
+    if (removed) {
+        printf("Removed: %s\n", removed->data);
+        freeNode(removed); // don’t forget to free it
+    } else {
+        printf("Remove failed!\n");
+    }
+
+    printf("\n--- Traversing list after removal ---\n");
+    traverse(head);
+
+    printf("\n--- Freeing list ---\n");
+    freeList(&head);
+    if (head == NULL) {
+        printf("List successfully freed.\n");
+    }
+
+    // ====== TESTING END ======
 
     fclose(infile);
 
