@@ -1,9 +1,16 @@
+// include the "LinkedList.h" file so we can reference it's function prototypes
 #include "LinkedList.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
 
+// creates a new node with a copy of the given string
+//
+// parameter data is the string to store in the node
+//
+// returns pointer to the newly created node or NULL if allocation fails
+//
 struct Node* createNode(char* data) {
     struct Node *newNode = malloc(sizeof(struct Node));
     // malloc check
@@ -24,6 +31,12 @@ struct Node* createNode(char* data) {
     return newNode;
 }
 
+
+// inserts a node at the end of the single linked list
+//
+// parameter head is a pointer to the head pointer of the linked list
+// parameter newNode is the node to insert
+//
 void insertAtEnd(struct Node** head, struct Node* newNode) {
     // if head or new node don't exist
     if(head == NULL || newNode == NULL)  {
@@ -43,6 +56,13 @@ void insertAtEnd(struct Node** head, struct Node* newNode) {
     current -> next = newNode;
 }
 
+
+// creates a linked list by reading lines from one of our test files
+//
+// parameter inf opens file pointer to read file given
+//
+// returns head of the created single linked list or NULL if an error occurs
+//
 struct Node* createList(FILE* inf) {
     if(inf == NULL) {
         return NULL;
@@ -65,6 +85,14 @@ struct Node* createList(FILE* inf) {
     return head;
 }
 
+
+// removes a node at a given index from the singly linked list
+//
+// parameter head is a pointer to the head pointer of the linked list
+// paramter index is the position of the node to remove
+//
+// returns the removed Node or NULL if invalid
+//
 struct Node* removeNode(struct Node** head, int index) {
     if(head == NULL || *head == NULL || index < 0) {
         return NULL;
@@ -97,6 +125,11 @@ struct Node* removeNode(struct Node** head, int index) {
     return current;
 }
 
+// traverses the list and prints each node's data in the list
+//
+// parameter head is the head of the list
+//
+// no return value as it just prints out the list to see visually
 void traverse(struct Node* head) {
     struct Node* current = head;
     while (current != NULL) {
@@ -105,6 +138,11 @@ void traverse(struct Node* head) {
     }
 }
 
+// frees the memory for a single node
+//
+// parameter aNode is the node that has been chosen to be freed
+//
+// no return value as it just frees memory
 void freeNode(struct Node* aNode) {
     if(aNode == NULL) {
         return;
@@ -113,6 +151,11 @@ void freeNode(struct Node* aNode) {
     free(aNode);
 }
 
+// frees an entire linked list and also sets head to NULL
+//
+// parameter head is a pointer to the head pointer of the list
+//
+// returns nothing is list is already freed in memory
 void freeList(struct Node** head) {
     if(head == NULL || *head == NULL) {
         return;
@@ -120,6 +163,8 @@ void freeList(struct Node** head) {
 
     struct Node* current = *head;
     struct Node* nextNode;
+
+    // frees entire list by checking if another "current" node exists
     while(current != NULL) {
         nextNode = current -> next;
         freeNode(current);
